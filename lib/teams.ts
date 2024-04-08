@@ -182,7 +182,7 @@ export const teams: { clubs: Team[]; nations: Team[] } = {
     {
       name: "Argentina",
       stars: 5,
-      logo: "argentina.webp",
+      logo: "argentina.png",
     },
     {
       name: "Belgium",
@@ -217,7 +217,7 @@ export const teams: { clubs: Team[]; nations: Team[] } = {
     {
       name: "Germany",
       stars: 5,
-      logo: "germany.webp",
+      logo: "germany.png",
     },
     {
       name: "Ghana",
@@ -242,7 +242,7 @@ export const teams: { clubs: Team[]; nations: Team[] } = {
     {
       name: "Netherlands",
       stars: 4.5,
-      logo: "netherlands.webp",
+      logo: "netherlands.png",
     },
     {
       name: "Norway",

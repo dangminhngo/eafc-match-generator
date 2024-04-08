@@ -2,31 +2,25 @@
 
 import React from "react";
 import TeamCard from "./team-card";
-import Select from "~/components/select";
 import { teams } from "~/lib/teams";
 import type { Team } from "~/types";
 import { useTeams } from "~/hooks/useTeams";
 
-const starOptions = [3, 3.5, 4, 4.5, 5].map((x) => ({
-  value: x + "",
-  label: x + "",
-}));
-
 export default function MainApp() {
   const [mounted, setMounted] = React.useState(false);
-  const [type, setType] = React.useState("Club");
-  const [min, setMin] = React.useState("3");
-  const [max, setMax] = React.useState("4.5");
+  const [type, setType] = React.useState("club");
+  const [min, setMin] = React.useState(3);
+  const [max, setMax] = React.useState(5);
 
   const selectableTeams = React.useMemo<Team[]>(
     () =>
-      teams[type == "Club" ? "clubs" : "nations"].filter(
+      teams[type === "club" ? "clubs" : "nations"].filter(
         (t) => t.stars >= +min && t.stars <= +max,
       ),
     [type, min, max],
   );
 
-  const { teamA, teamB, isLoading, generate } = useTeams(selectableTeams);
+  const { teamA, teamB, generate } = useTeams(selectableTeams);
 
   React.useEffect(() => {
     setMounted(true);
@@ -39,42 +33,54 @@ export default function MainApp() {
       </h1>
       <div className="flex flex-col items-stretch space-y-2">
         <div className="grid grid-cols-3 space-x-2">
-          <Select
-            id="type"
-            label="Type"
-            options={["Team", "Nation"].map((x) => ({ value: x, label: x }))}
-            value={type}
-            setValue={setType}
-          />
-          <Select
-            id="min"
-            label="Min."
-            options={starOptions}
-            disabledOptions={starOptions
-              .filter((opt) => opt.value > max)
-              .map((opt) => opt.value)}
-            value={min}
-            setValue={setMin}
-          />
-          <Select
-            id="max"
-            label="Max."
-            options={starOptions}
-            disabledOptions={starOptions
-              .filter((opt) => opt.value < min)
-              .map((opt) => opt.value)}
-            value={max}
-            setValue={setMax}
-          />
+          <div className="flex flex-col items-stretch space-y-1">
+            <label>Type</label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="rounded border border-slate-600 bg-white px-4 py-2"
+            >
+              <option value="club">Club</option>
+              <option value="nation">Nation</option>
+            </select>
+          </div>
+          <div className="flex flex-col items-stretch space-y-1">
+            <label>Min.</label>
+            <select
+              value={min}
+              onChange={(e) => setMin(+e.target.value)}
+              className="rounded border border-slate-600 bg-white px-4 py-2"
+            >
+              <option value={3}>3</option>
+              <option value={3.5}>3.5</option>
+              <option value={4}>4</option>
+              <option value={4.5}>4.5</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
+          <div className="flex flex-col items-stretch space-y-1">
+            <label>Max.</label>
+            <select
+              value={max}
+              onChange={(e) => setMax(+e.target.value)}
+              className="rounded border border-slate-600 bg-white px-4 py-2"
+            >
+              <option value={3}>3</option>
+              <option value={3.5}>3.5</option>
+              <option value={4}>4</option>
+              <option value={4.5}>4.5</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
         </div>
         <button
-          className="flex h-10 items-center justify-center rounded bg-slate-700 px-6 font-semibold text-slate-100 shadow"
+          className="flex h-10 items-center justify-center rounded bg-slate-800 px-6 font-semibold text-slate-100 shadow"
           onClick={generate}
         >
           Generate
         </button>
       </div>
-      <div className="flex h-[300px] items-center justify-center rounded-lg border-2 border-slate-700 bg-slate-800">
+      <div className="flex h-[300px] items-center justify-center rounded-lg border-2 border-slate-200">
         {teamA && teamB ? (
           <div className="flex items-center justify-center space-x-16">
             <TeamCard

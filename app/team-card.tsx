@@ -9,9 +9,7 @@ interface TeamCardProps extends Team {}
 export default function TeamCard({ name, stars, logo }: TeamCardProps) {
   return (
     <div className="flex h-[200px] w-[200px] flex-col items-center space-y-3">
-      <div className="relative h-[120px] w-[120px]">
-        <Image src={logo} alt={name} fill={true} objectFit="contain" />
-      </div>
+        <Image src={logo} alt={name} style={{ width: "auto", height: 100 }} width={100} height={100} />
       <p className="text-xl font-bold">{name}</p>
       <StarRating stars={stars} />
     </div>
