@@ -11,6 +11,7 @@ export default function MainApp() {
   const [type, setType] = React.useState("club");
   const [min, setMin] = React.useState(3);
   const [max, setMax] = React.useState(5);
+  const [isLoading, setLoading] = React.useState(false);
 
   const selectableTeams = React.useMemo<Team[]>(
     () =>
@@ -26,13 +27,27 @@ export default function MainApp() {
     setMounted(true);
   }, []);
 
+  React.useEffect(() => {
+    let timeout: number;
+    if (isLoading) {
+      timeout = window.setTimeout(() => setLoading(false), 500);
+    }
+
+    return () => window.clearTimeout(timeout);
+  }, [isLoading]);
+
+  function onGenerate() {
+    setLoading(true);
+    generate();
+  }
+
   return mounted ? (
     <div className="container mx-auto space-y-4">
-      <h1 className="text-center text-xl sm:text-2xl font-bold">
+      <h1 className="text-center text-xl font-bold sm:text-2xl">
         EAFC 24 Match Generator
       </h1>
       <div className="flex flex-col items-stretch space-y-2">
-        <div className="grid grid-cols-1 sm:grid-cols-3 space-y-2 sm:space-y-0 space-x-0 sm:space-x-4">
+        <div className="grid grid-cols-1 space-x-0 space-y-2 sm:grid-cols-3 sm:space-x-4 sm:space-y-0">
           <div className="flex items-center">
             <label className="w-16">Type:</label>
             <select
@@ -75,26 +90,32 @@ export default function MainApp() {
         </div>
         <button
           className="flex h-10 items-center justify-center rounded bg-slate-800 px-6 font-semibold text-slate-100 shadow"
-          onClick={generate}
+          onClick={onGenerate}
         >
           Generate
         </button>
       </div>
       <div className="flex items-center justify-center rounded-lg border-2 border-slate-200 p-6">
-        {teamA && teamB ? (
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 space-x-0 sm:space-x-16">
-            <TeamCard
-              {...teamA}
-              logo={`/logos/${type.toLowerCase() + "s"}/${teamA.logo}`}
-            />
-            <div className="text-2xl font-bold text-slate-500">VS</div>
-            <TeamCard
-              {...teamB}
-              logo={`/logos/${type.toLowerCase() + "s"}/${teamB.logo}`}
-            />
-          </div>
+        {isLoading ? (
+          "Generating..."
         ) : (
-          <p>Click &quot;Generate&quot; to create match...</p>
+          <>
+            {teamA && teamB ? (
+              <div className="flex flex-col items-center justify-center space-x-0 space-y-6 sm:flex-row sm:space-x-16 sm:space-y-0">
+                <TeamCard
+                  {...teamA}
+                  logo={`/logos/${type.toLowerCase() + "s"}/${teamA.logo}`}
+                />
+                <div className="text-2xl font-bold text-slate-500">VS</div>
+                <TeamCard
+                  {...teamB}
+                  logo={`/logos/${type.toLowerCase() + "s"}/${teamB.logo}`}
+                />
+              </div>
+            ) : (
+              <p>Click &quot;Generate&quot; to create match...</p>
+            )}
+          </>
         )}
       </div>
     </div>
