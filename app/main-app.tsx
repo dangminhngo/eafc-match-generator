@@ -28,28 +28,28 @@ export default function MainApp() {
 
   return mounted ? (
     <div className="container mx-auto space-y-4">
-      <h1 className="text-center text-2xl font-bold">
+      <h1 className="text-center text-xl sm:text-2xl font-bold">
         EAFC 24 Match Generator
       </h1>
       <div className="flex flex-col items-stretch space-y-2">
-        <div className="grid grid-cols-3 space-x-2">
-          <div className="flex flex-col items-stretch space-y-1">
-            <label>Type</label>
+        <div className="grid grid-cols-1 sm:grid-cols-3 space-y-2 sm:space-y-0 space-x-0 sm:space-x-4">
+          <div className="flex items-center">
+            <label className="w-16">Type:</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="rounded border border-slate-600 bg-white px-4 py-2"
+              className="w-full rounded border border-slate-600 bg-white p-2"
             >
               <option value="club">Club</option>
               <option value="nation">Nation</option>
             </select>
           </div>
-          <div className="flex flex-col items-stretch space-y-1">
-            <label>Min.</label>
+          <div className="flex items-center">
+            <label className="w-16">Min:</label>
             <select
               value={min}
               onChange={(e) => setMin(+e.target.value)}
-              className="rounded border border-slate-600 bg-white px-4 py-2"
+              className="w-full rounded border border-slate-600 bg-white p-2"
             >
               <option value={3}>3</option>
               <option value={3.5}>3.5</option>
@@ -58,12 +58,12 @@ export default function MainApp() {
               <option value={5}>5</option>
             </select>
           </div>
-          <div className="flex flex-col items-stretch space-y-1">
-            <label>Max.</label>
+          <div className="flex items-center">
+            <label className="w-16">Max:</label>
             <select
               value={max}
               onChange={(e) => setMax(+e.target.value)}
-              className="rounded border border-slate-600 bg-white px-4 py-2"
+              className="w-full rounded border border-slate-600 bg-white p-2"
             >
               <option value={3}>3</option>
               <option value={3.5}>3.5</option>
@@ -80,14 +80,14 @@ export default function MainApp() {
           Generate
         </button>
       </div>
-      <div className="flex h-[300px] items-center justify-center rounded-lg border-2 border-slate-200">
+      <div className="flex items-center justify-center rounded-lg border-2 border-slate-200 p-4">
         {teamA && teamB ? (
-          <div className="flex items-center justify-center space-x-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 space-x-0 sm:space-x-12">
             <TeamCard
               {...teamA}
               logo={`/logos/${type.toLowerCase() + "s"}/${teamA.logo}`}
             />
-            <div className="text-3xl font-bold text-slate-500">VS</div>
+            <div className="text-2xl font-bold text-slate-500">VS</div>
             <TeamCard
               {...teamB}
               logo={`/logos/${type.toLowerCase() + "s"}/${teamB.logo}`}
