@@ -80,9 +80,9 @@ export default function MainApp() {
           Generate
         </button>
       </div>
-      <div className="flex items-center justify-center rounded-lg border-2 border-slate-200 p-4">
+      <div className="flex items-center justify-center rounded-lg border-2 border-slate-200 p-6">
         {teamA && teamB ? (
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 space-x-0 sm:space-x-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 space-x-0 sm:space-x-16">
             <TeamCard
               {...teamA}
               logo={`/logos/${type.toLowerCase() + "s"}/${teamA.logo}`}

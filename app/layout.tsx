@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Ramdom EAFC 24",
-  description: "Created by Dang Minh",
+  title: "FC 24 Match Generator",
+  description: "Created by Dang Minh for personal purposes",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

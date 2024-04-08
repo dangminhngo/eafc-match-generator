@@ -20,7 +20,7 @@ function StarRating({ stars }: { stars: number }) {
   const { full, half, none } = getStars(stars);
 
   return (
-    <div className="flex items-center space-x-2 text-amber-500">
+    <div className="flex items-center text-amber-500">
       {Array.from({ length: full }).map((_, i) => (
         <Star key={i} />
       ))}
